@@ -1,0 +1,6 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/example/translucent_mobile/BuildConfig.java
+ com.example.translucent_mobile.BuildConfig
+com/example/translucent_mobile/MainActivity.java
+ com.example.translucent_mobile.MainActivity
