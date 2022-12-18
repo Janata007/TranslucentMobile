@@ -8,10 +8,7 @@ import '../constants.dart';
 import '../utils/requests.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({required this.city});
-
-  final String city;
-
+  const HomeScreen();
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -58,10 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              newCity,
-              SizedBox(
-                height: 20,
-              ),
               SizedBox(
                 height: 20,
               ),
@@ -71,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: darkBlue,
                       border: Border.all(color: lightBlue, width: 3)),
                   padding: EdgeInsets.all(20),
-                  child: Text("CITY: " + locationCity,
+                  child: Text("Name: " + arrangementName,
                       style: TextStyle(fontSize: 15))),
               SizedBox(
                 height: 20,
@@ -82,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: darkBlue,
                       border: Border.all(color: lightBlue, width: 3)),
                   padding: EdgeInsets.all(20),
-                  child: Text("COUNTRY: " + locationCountry,
+                  child: Text("Description: " + arrangementDesc,
                       style: TextStyle(fontSize: 15))),
               SizedBox(
                 height: 20,
@@ -93,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: darkBlue,
                       border: Border.all(color: lightBlue, width: 3)),
                   padding: EdgeInsets.all(20),
-                  child: Text("LOCAL DATE AND TIME: " + localTime,
+                  child: Text("Date" + arrangementDate,
                       style: TextStyle(fontSize: 15))),
               SizedBox(
                 height: 20,
@@ -104,18 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: darkBlue,
                       border: Border.all(color: lightBlue, width: 3)),
                   padding: EdgeInsets.all(20),
-                  child: Text("CURRENT WEATHER: " + weather,
-                      style: TextStyle(fontSize: 15))),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                      color: darkBlue,
-                      border: Border.all(color: lightBlue, width: 3)),
-                  padding: EdgeInsets.all(20),
-                  child: Text("TEMPERATURE: " + tempC,
+                  child: Text("Time: " + arrangementTime,
                       style: TextStyle(fontSize: 15))),
               SizedBox(
                 height: 20,
@@ -129,34 +111,12 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 20,
               ),
-              TextButton(
-                  onPressed: getForecast,
-                  child: Text(
-                    "get forecast data for this city",
-                    style: TextStyle(fontSize: 15, color: Colors.white),
-                  )),
-              SizedBox(
-                height: 20,
-              ),
               myButtons(context),
             ],
           ),
         ),
       ),
     );
-  }
-
-  Future<void> getArrangementsForUser() async {
-    arrangements = await httpService.getCurrentWeatherByCity(widget.city);
-    resetState();
-  }
-
-  Future<void> getForecast() async {
-    arrangements = await httpService.getArrangementsForUser(loggedUsername);
-    setArrangementsInfo();
-    Navigator.of(context, rootNavigator: true).pop();
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ForecastScreen()));
   }
 
   void setArrangementsInfo() {
@@ -189,12 +149,16 @@ class _HomeScreenState extends State<HomeScreen> {
       tempC = jsonData['current']['temp_c'].toString();
     });
   }
+  Future<void> getData() async {
+    arrangements = await httpService.getArrangementsForUser(loggedUsername);
+    resetState();
+  }
 
   void redirectToHome() {
     Navigator.of(context, rootNavigator: true).pop();
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => MainScreen(weatherData: mainWeatherData)));
+            builder: (context) => MainScreen()));
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:translucent_mobile/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-void main() async{
+import 'package:translucent_mobile/screens/login_screen.dart';
+
+void main() async {
   runApp(MyApp());
 }
 

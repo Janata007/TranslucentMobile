@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const semiBlue = Color.fromRGBO(143, 167, 196, 1);
@@ -16,6 +15,10 @@ int userId = 0;
 List<String> dates = [];
 String profileData = "";
 String arrangementData = "";
+String arrangementName = "";
+String arrangementDesc = "";
+String arrangementDate = "";
+String arrangementTime = "";
 
 Map<String, dynamic> jsonData = {
   "location": 'info',
