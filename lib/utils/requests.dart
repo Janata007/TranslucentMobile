@@ -34,17 +34,17 @@ class HttpService {
     var decodedResponse =
         jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
     userId = decodedResponse.values.first.toString();
-    print("USER DATA:" + decodedResponse.toString());
     profileData = User.fromJson(decodedResponse);
   }
 
   Future<void> getArrangementsForUser(String username) async {
+    await getUserInfoByUsername(username);
     String url = baseURL + "arrangements/all/" + userId.toString();
     var mainUrl = Uri.parse(url);
     var response = await http.get(mainUrl,
         headers: <String, String>{'Authorization': 'Bearer ' + userToken});
-    var decodedResponse =
-        jsonDecode(utf8.decode(response.bodyBytes)) as List<dynamic>;
+    var decodedResponse = jsonDecode(response.body) as List<dynamic>;
+    print("RESPONSE: " + decodedResponse.toString());
     arrangementList = decodedResponse
         .map((e) => Arrangement.fromJson(e as Map<String, dynamic>))
         .toList();
