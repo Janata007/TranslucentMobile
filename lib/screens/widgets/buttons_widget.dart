@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:translucent_mobile/screens/home_screen.dart';
+import 'package:translucent_mobile/screens/profile_screen.dart';
 import 'package:translucent_mobile/utils/notification_api.dart';
 
 import '../../constants.dart';
@@ -16,7 +18,7 @@ Widget myButtons(BuildContext context) {
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MainScreen()));
+                    MaterialPageRoute(builder: (context) => HomeScreen()));
               },
               child: Container(
                   decoration: const BoxDecoration(
@@ -31,7 +33,7 @@ Widget myButtons(BuildContext context) {
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MySettings()));
+                    MaterialPageRoute(builder: (context) => ProfileScreen()));
               },
               child: Container(
                   decoration: const BoxDecoration(

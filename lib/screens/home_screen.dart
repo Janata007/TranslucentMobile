@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:translucent_mobile/screens/widgets/buttons_widget.dart';
 import 'package:translucent_mobile/screens/widgets/custom_button.dart';
 
 import '../constants.dart';
@@ -9,12 +10,13 @@ import '../utils/requests.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen();
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String arrangements="";
+  String arrangements = "";
   final TextEditingController _arrangementTextController =
       TextEditingController();
   HttpService httpService = HttpService();
@@ -35,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                redirectToHome();
+                // redirectToHome();
               },
               icon: Icon(Icons.account_circle_rounded))
         ],
@@ -105,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
               TextButton(
                   onPressed: getData,
                   child: Text(
-                    "get weather data",
+                    "Get Profile Info",
                     style: TextStyle(fontSize: 15, color: Colors.white),
                   )),
               SizedBox(
@@ -119,46 +121,40 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void setArrangementsInfo() {
-    dates.clear();
-    arrangementsJsonData = jsonDecode(arrangements);
-    List<dynamic> days = forecastJsonData["forecast"]["forecastday"];
-    //todo: map dates correctly based on json
-    Map<String, dynamic> day1 = days[0];
-    Map<String, dynamic> day2 = days[1];
-    Map<String, dynamic> day3 = days[2];
-    daysDates.add(day1["date"]);
-    daysDates.add(day2["date"]);
-    daysDates.add(day3["date"]);
-
-    day1Temp = day1["day"]['avgtemp_c'];
-    day2Temp = day2["day"]['avgtemp_c'];
-    day3Temp = day3["day"]['avgtemp_c'];
-    daysTemp.add(day1Temp.toString());
-    daysTemp.add(day2Temp.toString());
-    daysTemp.add(day3Temp.toString());
-  }
-
-  void resetState() {
-    setState(() {
-      jsonData = jsonDecode(arrangements);
-      locationCity = jsonData['location']['name'];
-      locationCountry = jsonData['location']['country'];
-      localTime = jsonData['location']['localtime'];
-      weather = jsonData['current']['condition']['text'];
-      tempC = jsonData['current']['temp_c'].toString();
-    });
-  }
   Future<void> getData() async {
     arrangements = await httpService.getArrangementsForUser(loggedUsername);
     resetState();
   }
-
-  void redirectToHome() {
-    Navigator.of(context, rootNavigator: true).pop();
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => MainScreen()));
+  void resetState() {
+    setState(() {
+      // jsonData = jsonDecode(arrangements);
+      // locationCity = jsonData['location']['name'];
+      // locationCountry = jsonData['location']['country'];
+      // localTime = jsonData['location']['localtime'];
+      // weather = jsonData['current']['condition']['text'];
+      // arrangementId = jsonData['current']['temp_c'].toString();
+    });
   }
+
+  void setArrangementsInfo() {
+    dates.clear();
+    arrangementsJsonData = jsonDecode(arrangements);
+    List<dynamic> days = arrangementsJsonData["arrangements"]["arrangement"];
+    //todo: map dates correctly based on json
+    Map<String, dynamic> day1 = days[0];
+    Map<String, dynamic> day2 = days[1];
+    Map<String, dynamic> day3 = days[2];
+  //   daysDates.add(day1["date"]);
+  //   daysDates.add(day2["date"]);
+  //   daysDates.add(day3["date"]);
+  //
+  //   day1Temp = day1["day"]['avgtemp_c'];
+  //   day2Temp = day2["day"]['avgtemp_c'];
+  //   day3Temp = day3["day"]['avgtemp_c'];
+  //   daysTemp.add(day1Temp.toString());
+  //   daysTemp.add(day2Temp.toString());
+  //   daysTemp.add(day3Temp.toString());
+  }
+
+
 }

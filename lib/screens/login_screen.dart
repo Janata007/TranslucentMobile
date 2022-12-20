@@ -151,17 +151,12 @@ class _LoginScreenState extends State<LoginScreen> {
     //send request to service
     userToken = await httpService.authenticateUser(
         _username.toString(), _password.toString());
-    print(userToken);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var username = prefs.getString('username');
     var pass = prefs.getString('password');
 
-    if (_username.compareTo(username.toString()) != 0) {
-      _loginErrorDialog();
-    } else if (_password.compareTo(pass.toString()) != 0) {
-      _loginErrorDialog();
-    } else if (userToken.toString().isEmpty) {
+    if (userToken.toString().isEmpty) {
       _loginErrorDialog();
     } else {
       redirectToHome();

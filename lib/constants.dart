@@ -6,14 +6,14 @@ const lightBlue = Color.fromRGBO(210, 236, 249, 1);
 const lightGray = Color.fromRGBO(216, 220, 220, 1);
 const darkBlue = Color.fromRGBO(36, 60, 108, 1);
 
-final logo = Image.asset("assets/logo_nogb.png", width: 180, height: 180);
+final logo = Image.asset("assets/translucent_logo.png", width: 180, height: 180);
 Image mainGif = Image.asset("assets/kiss.gif", height: 10, width: 10);
 final pref = getSharedPreferences();
 String userToken = "";
 String loggedUsername = "";
 int userId = 0;
 List<String> dates = [];
-String profileData = "";
+List<String> profileData = [];
 String arrangementData = "";
 String arrangementName = "";
 String arrangementDesc = "";
@@ -25,7 +25,7 @@ Map<String, dynamic> jsonData = {
   "condition": 'condition info'
 };
 Map<String, dynamic> arrangementsJsonData = {
-  "forecast": "",
+  "arrangements": "",
 };
 
 getSharedPreferences() async {
