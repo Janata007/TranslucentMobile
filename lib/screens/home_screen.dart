@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:translucent_mobile/screens/widgets/buttons_widget.dart';
-import 'package:translucent_mobile/screens/widgets/custom_button.dart';
 
 import '../constants.dart';
 import '../utils/requests.dart';
@@ -25,106 +24,79 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          children: <Widget>[
-            Text(
-              "Return to main ->",
-              style: TextStyle(fontSize: 17, color: lightGray),
-            )
-          ],
+        title: Text(
+          "Your Arrangements",
+          style: TextStyle(color: lightBlue),
         ),
         backgroundColor: darkBlue,
-        actions: [
-          IconButton(
-              onPressed: () {
-                // redirectToHome();
-              },
-              icon: Icon(Icons.account_circle_rounded))
-        ],
       ),
       body: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(7.0)),
-          border: Border.all(color: Colors.white, width: 4),
-          gradient: LinearGradient(
-              colors: [semiBlue, darkBlue],
-              begin: Alignment(-1, -0.5),
-              end: Alignment(2, 2)),
-          color: semiBlue,
-        ),
-        child: SingleChildScrollView(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [semiBlue, darkBlue],
+                begin: Alignment(-1, -0.5),
+                end: Alignment(2, 2)),
+            color: semiBlue,
+          ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                      color: darkBlue,
-                      border: Border.all(color: lightBlue, width: 3)),
-                  padding: EdgeInsets.all(20),
-                  child: Text("Name: " + arrangementName,
-                      style: TextStyle(fontSize: 15))),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                      color: darkBlue,
-                      border: Border.all(color: lightBlue, width: 3)),
-                  padding: EdgeInsets.all(20),
-                  child: Text("Description: " + arrangementDesc,
-                      style: TextStyle(fontSize: 15))),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                      color: darkBlue,
-                      border: Border.all(color: lightBlue, width: 3)),
-                  padding: EdgeInsets.all(20),
-                  child: Text("Date" + arrangementDate,
-                      style: TextStyle(fontSize: 15))),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                      color: darkBlue,
-                      border: Border.all(color: lightBlue, width: 3)),
-                  padding: EdgeInsets.all(20),
-                  child: Text("Time: " + arrangementTime,
-                      style: TextStyle(fontSize: 15))),
-              SizedBox(
-                height: 20,
-              ),
               TextButton(
                   onPressed: getData,
                   child: Text(
-                    "Get Profile Info",
+                    "Get arrangements",
                     style: TextStyle(fontSize: 15, color: Colors.white),
                   )),
-              SizedBox(
-                height: 20,
+              Expanded(
+                child: ListView.builder(
+                  itemCount: arrangementList.length,
+                  itemBuilder: (context, int index) {
+                    return Card(
+                      color: darkBlue,
+                      margin: EdgeInsets.all(20),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                          border: Border.all(color: lightBlue, width: 3),
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              "Name:  " + arrangementList[index].name,
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            Text(
+                              "Code:  " + arrangementList[index].code,
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            Text(
+                              "Start:  " + arrangementList[index].startTime,
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            Text(
+                              "End:  " + arrangementList[index].endTime,
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  padding: EdgeInsets.all(15),
+                ),
               ),
-              myButtons(context),
+              myButtons(context)
             ],
-          ),
-        ),
-      ),
+          )),
     );
   }
 
   Future<void> getData() async {
-    arrangements = await httpService.getArrangementsForUser(loggedUsername);
+    await httpService.getArrangementsForUser(loggedUsername);
     resetState();
   }
+
   void resetState() {
     setState(() {
       // jsonData = jsonDecode(arrangements);
@@ -144,17 +116,15 @@ class _HomeScreenState extends State<HomeScreen> {
     Map<String, dynamic> day1 = days[0];
     Map<String, dynamic> day2 = days[1];
     Map<String, dynamic> day3 = days[2];
-  //   daysDates.add(day1["date"]);
-  //   daysDates.add(day2["date"]);
-  //   daysDates.add(day3["date"]);
-  //
-  //   day1Temp = day1["day"]['avgtemp_c'];
-  //   day2Temp = day2["day"]['avgtemp_c'];
-  //   day3Temp = day3["day"]['avgtemp_c'];
-  //   daysTemp.add(day1Temp.toString());
-  //   daysTemp.add(day2Temp.toString());
-  //   daysTemp.add(day3Temp.toString());
+    //   daysDates.add(day1["date"]);
+    //   daysDates.add(day2["date"]);
+    //   daysDates.add(day3["date"]);
+    //
+    //   day1Temp = day1["day"]['avgtemp_c'];
+    //   day2Temp = day2["day"]['avgtemp_c'];
+    //   day3Temp = day3["day"]['avgtemp_c'];
+    //   daysTemp.add(day1Temp.toString());
+    //   daysTemp.add(day2Temp.toString());
+    //   daysTemp.add(day3Temp.toString());
   }
-
-
 }
