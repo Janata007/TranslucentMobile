@@ -4,9 +4,9 @@ import 'package:translucent_mobile/utils/Arrangement.dart';
 import 'package:translucent_mobile/utils/user.dart';
 
 const semiBlue = Color.fromRGBO(143, 167, 196, 1);
-const lightBlue = Color.fromRGBO(210, 236, 249, 1);
-const lightGray = Color.fromRGBO(216, 220, 220, 1);
-const darkBlue = Color.fromRGBO(36, 60, 108, 1);
+const lightBlue = Color.fromRGBO(64,155,255, 1);
+const lightGray = Color.fromRGBO(245,251,255, 1);
+const darkBlue = Color.fromRGBO(14,44,117, 1);
 
 final logo =
     Image.asset("assets/translucent_logo.png", width: 180, height: 180);
